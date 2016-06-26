@@ -1,0 +1,52 @@
+html {
+    font-family: Helvetica;
+    background: linear-gradient( red, yellow);
+    height: 100%;
+}
+
+h1 {
+    margin: 50px auto;
+    text-align: center;
+    width: 600px;
+    color: beige;
+}
+
+table {
+    border-collapse: collapse;
+    margin: 0 auto;
+    width: 600px;
+    height: 600px;
+    border: 2px solid black;
+    font-size: 30px;
+}
+
+td {
+    text-align: center;
+    height: 200px;
+    width: 200px;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+}
+
+#r2c2 {
+    border: 2px solid black;
+}
+
+#r1c2, #r3c2 {
+    border-left: 2px solid black;
+    border-right: 2px solid black;
+}
+
+#r2c1, #r2c3 {
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+}
+
+#r1c1, #r1c3, #r2c2, #r3c1, #r3c3 {
+    background-color: beige;
+}
+
+#r1c2, #r2c1, #r2c3, #r3c2 {
+    background-color: white;
+}
