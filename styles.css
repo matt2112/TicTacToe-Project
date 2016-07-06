@@ -1,6 +1,7 @@
 html {
     font-family: Helvetica;
     background: linear-gradient( red, yellow);
+    background-attachment: fixed;
     height: 100%;
 }
 
@@ -9,15 +10,17 @@ h1 {
     text-align: center;
     width: 600px;
     color: beige;
+    font-size: 3em;
 }
 
 table {
     border-collapse: collapse;
-    margin: 0 auto;
+    margin: 0 auto 20px auto;
     width: 600px;
     height: 600px;
     border: 2px solid black;
     font-size: 30px;
+    color: red;
 }
 
 td {
@@ -49,4 +52,41 @@ td {
 
 #r1c2, #r2c1, #r2c3, #r3c2 {
     background-color: white;
+}
+
+#info {
+    height: 200px;
+    width: 600px;
+    margin: 0px auto;
+    background-color: lightblue;
+    border: 2px solid black;
+    position: relative;
+}
+
+#instructions {
+    text-align: center;
+    font-size: 2em;
+    padding: 4px;
+}
+
+@media screen and (min-width: 1024px) {
+    
+    #section1 {
+        width: 70%;
+        float: right;
+    }
+    
+    #section2 {
+        width: 30%;
+        float: right;
+    }
+    
+    #info {
+        width: 300px;
+        height: 606px;
+        
+    }
+    
+    table {
+    }
 }

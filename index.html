@@ -4,14 +4,16 @@
     <title>Tic Tac Toe</title>
     <meta charset="utf-8">
     
-    <script src="https://code.jquery.com/jquery-3.0.0.min.js"   integrity="sha256-JmvOoLtYsmqlsWxa7mDSLMwa6dZ9rrIdtrrVYRnDRH0="   crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="normalize.css">
     <link rel="stylesheet" type="text/css" href="styles.css">
+    
 </head>
 <body>
     
     <h1>freeCodeCamp TicTacToe</h1>
     
-    <table>
+    <section id="section1">
+        <table>
         <tr>
             <td id="r1c1"></td>
             <td id="r1c2"></td>
@@ -29,9 +31,23 @@
         </tr>
     </table>
     
-    <button id="chooseO">O</button>
-    <button id="chooseX">X</button>
-    <button id="clear">Clear</button>
+    </section>
+    
+    <section id="section2">
+    
+    <div id="info">
+        <p id="instructions">Hi! Click 'Start' button to begin game.</p>
+        <button id="start">Start</button>
+        <button class="choice">O</button>
+        <button class="choice">X</button>
+        <button id="clear">Reset</button>
+    </div>
+        
+    </section>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.0.0.min.js"   integrity="sha256-JmvOoLtYsmqlsWxa7mDSLMwa6dZ9rrIdtrrVYRnDRH0="   crossorigin="anonymous"></script>
+    
     <script type="text/javascript" src="scripts.js"></script>
 </body>
 </html>
