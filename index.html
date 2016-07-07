@@ -37,10 +37,23 @@
     
     <div id="info">
         <p id="instructions">Hi! Click 'Start' button to begin game.</p>
-        <button id="start">Start</button>
-        <button class="choice">O</button>
-        <button class="choice">X</button>
-        <button id="clear">Reset</button>
+        <div id="buttons">
+            <button id="start" class="button">Start</button>
+            <button id="reset" class="button">New round</button>
+            <button class="choice button">X</button>
+            <button class="choice button">O</button>
+        </div>
+        <div id="scores">
+            <div class="scoreBox">
+                <p>Player</p>
+                <p id="playerScore" class="score">0</p>
+            </div>
+            <div class="scoreBox">
+                <p>Computer</p>
+                <p id="compScore" class="score">0</p>
+            </div>
+        </div>
+
     </div>
         
     </section>

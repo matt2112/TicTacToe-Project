@@ -21,12 +21,16 @@ var grid = {
     r3c3: null
 };
 var keys = Object.keys(grid);
+var playerScore = 0;
+var compScore = 0;
+
 
 /**
  * Awaits user click to begin game.
  **/
 $("#start").on("click", function () {
     if (!inProgress) {
+        $("td").text(" ");
         $("#instructions").html("Choose X or O (X begins).");
         choose = true;
     }
@@ -44,6 +48,7 @@ $(".choice").on("click", function () {
         if (player === "O") {
             computerMove();
         }
+        $("#instructions").html("Your move.");
     }
 });
 
@@ -59,7 +64,6 @@ $("td").on("click", function () {
             calculateWin();
             if ((move < 4) && (!winner)) {
                 computerMove();
-                calculateWin();
             }
         }
     }
@@ -76,6 +80,8 @@ $("#reset").on("click", function () {
     }
     move = 0;
     winner = false;
+    $("#instructions").html("Choose X or O (X begins).");
+    choose = true;
 });
 
 // computer moves randomly
@@ -94,48 +100,58 @@ var computerMove = function () {
 var calculateWin = function () {
     // check first row
     if ((grid["r1c1"] !== null) && (grid["r1c1"] === grid["r1c2"]) && (grid["r1c1"] === grid["r1c3"])) {
-        winResponse();
+        console.log('test');
+        winResponse(grid["r1c1"]);
     }
 
     //check second row
-    if ((grid["r2c1"] !== null) && (grid["r2c1"] === grid["r2c2"]) && (grid["r2c1"] === grid["r2c3"])) {
-        winResponse();
+    else if ((grid["r2c1"] !== null) && (grid["r2c1"] === grid["r2c2"]) && (grid["r2c1"] === grid["r2c3"])) {
+        winResponse(grid["r2c1"]);
     }
 
     //check third row
-    if ((grid["r3c1"] !== null) && (grid["r3c1"] === grid["r3c2"]) && (grid["r3c1"] === grid["r3c3"])) {
-        winResponse();
+    else if ((grid["r3c1"] !== null) && (grid["r3c1"] === grid["r3c2"]) && (grid["r3c1"] === grid["r3c3"])) {
+        winResponse(grid["r3c1"]);
     }
 
     // check first column
-    if ((grid["r1c1"] !== null) && (grid["r1c1"] === grid["r2c1"]) && (grid["r1c1"] === grid["r3c1"])) {
-        winResponse();
+    else if ((grid["r1c1"] !== null) && (grid["r1c1"] === grid["r2c1"]) && (grid["r1c1"] === grid["r3c1"])) {
+        winResponse(grid["r1c1"]);
     }
 
     // check second column
-    if ((grid["r1c2"] !== null) && (grid["r1c2"] === grid["r2c2"]) && (grid["r1c2"] === grid["r3c2"])) {
-        winResponse();
+    else if ((grid["r1c2"] !== null) && (grid["r1c2"] === grid["r2c2"]) && (grid["r1c2"] === grid["r3c2"])) {
+        winResponse(grid["r1c2"]);
     }
 
     // check third column
-    if ((grid["r1c3"] !== null) && (grid["r1c3"] === grid["r2c3"]) && (grid["r1c3"] === grid["r3c3"])) {
-        winResponse();
+    else if ((grid["r1c3"] !== null) && (grid["r1c3"] === grid["r2c3"]) && (grid["r1c3"] === grid["r3c3"])) {
+        winResponse(grid["r1c3"]);
     }
 
     // check first diagonal
-    if ((grid["r1c1"] !== null) && (grid["r1c1"] === grid["r2c2"]) && (grid["r1c1"] === grid["r3c3"])) {
-        winResponse();
+    else if ((grid["r1c1"] !== null) && (grid["r1c1"] === grid["r2c2"]) && (grid["r1c1"] === grid["r3c3"])) {
+        winResponse(grid["r1c1"]);
     }
 
     // check second diagonal
-    if ((grid["r1c3"] !== null) && (grid["r1c3"] === grid["r2c2"]) && (grid["r1c3"] === grid["r3c1"])) {
-        winResponse();
+    else if ((grid["r1c3"] !== null) && (grid["r1c3"] === grid["r2c2"]) && (grid["r1c3"] === grid["r3c1"])) {
+        winResponse(grid["r1c3"]);
     }
 }
 
-// responds to winning board
-var winResponse = function () {
-    alert("winner!");
+/**
+ * Responds to winning board.
+ **/
+var winResponse = function (winner) {
+    $("#instructions").html(winner + " wins!");
+    if (player === winner) {
+        var newScore = parseInt($("#playerScore").text()) + 1;
+        $("#playerScore").text(newScore);
+    } else {
+        var newScore = parseInt($("#comptScore").text()) + 1;
+        $("#compScore").text(newScore);
+    }
     winner = true;
     inProgress = false;
 }
