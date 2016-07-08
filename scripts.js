@@ -21,23 +21,24 @@ var grid = {
     r3c3: null
 };
 var keys = Object.keys(grid);
-var playerScore = 0;
-var compScore = 0;
-
+var finished = false;
 
 /**
  * Awaits user click to begin game.
  **/
 $("#start").on("click", function () {
     if (!inProgress) {
+        $("#playerScore").text(0);
+        $("#compScore").text(0);
         $("td").text(" ");
         $("#instructions").html("Choose X or O (X begins).");
         choose = true;
+        finished = false;
     }
 });
 
 /** 
- * Allows user to select shape once at beginning of game.
+ * Allows user to select shape once at beginning of round.
  **/
 $(".choice").on("click", function () {
     if (choose) {
@@ -62,8 +63,9 @@ $("td").on("click", function () {
             $(this).text(player);
             grid[cell] = player;
             calculateWin();
-            if ((move < 4) && (!winner)) {
+            if (!winner) {
                 computerMove();
+                calculateWin();
             }
         }
     }
@@ -74,17 +76,21 @@ $("td").on("click", function () {
  * Clears board and resets variables.
  **/
 $("#reset").on("click", function () {
-    $("td").text(" ");
-    for (var i = 0; i < keys.length; i++) {
-        grid[keys[i]] = null;
+    if (!finished) {
+        $("td").text(" ");
+        for (var i = 0; i < keys.length; i++) {
+            grid[keys[i]] = null;
+        }
+        move = 0;
+        winner = false;
+        $("#instructions").html("Choose X or O (X begins).");
+        choose = true;
     }
-    move = 0;
-    winner = false;
-    $("#instructions").html("Choose X or O (X begins).");
-    choose = true;
 });
 
-// computer moves randomly
+/**
+ * Computer moves randomly.
+ **/
 var computerMove = function () {
     var cell = keys[Math.floor(Math.random() * keys.length)];
     if (grid[cell] !== null) {
@@ -96,47 +102,56 @@ var computerMove = function () {
     }
 }
 
-// looks for a winning board and responds accordingly
+/**
+ * Looks for a winning board and responds accordingly.
+ **/
 var calculateWin = function () {
     // check first row
     if ((grid["r1c1"] !== null) && (grid["r1c1"] === grid["r1c2"]) && (grid["r1c1"] === grid["r1c3"])) {
-        console.log('test');
         winResponse(grid["r1c1"]);
+        winner = true;
     }
 
     //check second row
     else if ((grid["r2c1"] !== null) && (grid["r2c1"] === grid["r2c2"]) && (grid["r2c1"] === grid["r2c3"])) {
         winResponse(grid["r2c1"]);
+        winner = true;
     }
 
     //check third row
     else if ((grid["r3c1"] !== null) && (grid["r3c1"] === grid["r3c2"]) && (grid["r3c1"] === grid["r3c3"])) {
         winResponse(grid["r3c1"]);
+        winner = true;
     }
 
     // check first column
     else if ((grid["r1c1"] !== null) && (grid["r1c1"] === grid["r2c1"]) && (grid["r1c1"] === grid["r3c1"])) {
         winResponse(grid["r1c1"]);
+        winner = true;
     }
 
     // check second column
     else if ((grid["r1c2"] !== null) && (grid["r1c2"] === grid["r2c2"]) && (grid["r1c2"] === grid["r3c2"])) {
         winResponse(grid["r1c2"]);
+        winner = true;
     }
 
     // check third column
     else if ((grid["r1c3"] !== null) && (grid["r1c3"] === grid["r2c3"]) && (grid["r1c3"] === grid["r3c3"])) {
         winResponse(grid["r1c3"]);
+        winner = true;
     }
 
     // check first diagonal
     else if ((grid["r1c1"] !== null) && (grid["r1c1"] === grid["r2c2"]) && (grid["r1c1"] === grid["r3c3"])) {
         winResponse(grid["r1c1"]);
+        winner = true;
     }
 
     // check second diagonal
     else if ((grid["r1c3"] !== null) && (grid["r1c3"] === grid["r2c2"]) && (grid["r1c3"] === grid["r3c1"])) {
         winResponse(grid["r1c3"]);
+        winner = true;
     }
 }
 
@@ -148,10 +163,17 @@ var winResponse = function (winner) {
     if (player === winner) {
         var newScore = parseInt($("#playerScore").text()) + 1;
         $("#playerScore").text(newScore);
+        if (newScore === 5) {
+            $("#instructions").html("Congratulations, you win! Click 'Start' to play again.");
+            finished = true;
+        }
     } else {
-        var newScore = parseInt($("#comptScore").text()) + 1;
+        var newScore = parseInt($("#compScore").text()) + 1;
         $("#compScore").text(newScore);
+        if (newScore === 5) {
+            $("#instructions").html("You lose! Click 'Start' to try again.");
+            finished = true;
+        }
     }
-    winner = true;
     inProgress = false;
 }
